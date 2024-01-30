@@ -27,3 +27,11 @@ const getListarFilmes = async function() {
 const getBuscarFilme = async function() {
 
 }
+
+module.exports = {
+    setNovoFilme,
+    setAtualizarFilme,
+    setExcluirFilme,
+    getListarFilmes,
+    getBuscarFilme
+}
