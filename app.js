@@ -15,10 +15,18 @@ app.use((request, response, next) => {
 })
 
 
-app.get('/v1/acme/filmes', async(request, response, next) => {
+app.get('/v1/acme/filmes', cors(), async(request, response, next) => {
     response.json(funcoes.getListaFilmes())
     response.status(200)
 })
 
+app.get('/v1/acme/filme/:id', cors(), async(request, response, next) => {
 
+    let idFilme = request.params.id
+
+    response.json(funcoes.getFilme(idFilme))
+    response.status(200)
+})
+
+console.log("Funcionando na porta 8080")
 app.listen(8080, () => {})

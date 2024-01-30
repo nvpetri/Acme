@@ -28,6 +28,30 @@ const getListaFilmes = () => {
 
 }
 
+const getFilme = (idFilme) => {
+
+    const filmes = dadosFilmes.filmes.filmes
+
+    let jsonFilmes = {}
+    let id = idFilme,
+        situacao = false
+
+    filmes.forEach((filme) => {
+        if (filme.id == id) {
+            jsonFilmes = {
+                id: filme.id,
+                nome: filme.nome,
+            }
+            situacao = true
+        }
+    })
+
+    if (situacao) return jsonFilmes
+    else return false
+
+}
+
 module.exports = {
-    getListaFilmes
+    getListaFilmes,
+    getFilme
 }
