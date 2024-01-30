@@ -24,3 +24,11 @@ const selectAllFilmes = async function() {
 const selectFilmeById = async function() {
 
 }
+
+module.exports = {
+    insertFilme,
+    updateFilme,
+    deleteFilme,
+    selectAllFilmes,
+    selectFilmeById
+}
