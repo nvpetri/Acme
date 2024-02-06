@@ -25,6 +25,10 @@ app.use((request, response, next) => {
 
 })
 
+/*imports dos arquivos internos*/
+
+const controllerFilmes = require('./controller/controller_filme.js')
+
 // retorna os dados do arquivo json
 app.get('/v1/acmefilmes/filmes', cors(), async(request, response, next) => {
     response.json(funcoes.getListaFilmes())
@@ -41,7 +45,10 @@ app.get('/v1/acmefilmes/filme/:id', cors(), async(request, response, next) => {
 
 // retorna os dados do banco de dados
 app.get('/v2/acmefilmes/filmes', cors(), async(request, response, next) => {
+    let dadosFilmes = await controllerFilmes.getListarFilmes()
 
+    if (dadosFilmes) response.json(dadosFilmes), response.status(200)
+    else response.json({ message: "nenhum registro encontrado" }), response.status(404)
 })
 
 console.log("API funcionando na porta 8080")
