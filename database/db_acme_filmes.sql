@@ -15,3 +15,23 @@ create table tbl_filme(
     unique key (id),
     unique index (id)
 );
+
+insert into tbl_filme (nome, sinopse, duracao, data_lancamento, data_relancamento, foto_capa, valor_unitario) values
+(
+"O Segredo do Vale",
+"Um drama emocionante que explora os segredos de uma pequena cidade no interior.",
+'02:35:00',
+"2022-08-25",
+null,
+"https://exemplo.com/foto_vale.jpg",
+29.99
+),
+(
+"Carros",
+"Um carro com vida, correndo.",
+'02:10:00',
+"2021-12-15",
+null,
+"https://exemplo.com/foto_vale.jpg",
+49.99
+)
