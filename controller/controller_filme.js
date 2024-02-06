@@ -6,6 +6,8 @@
  * Versão: 1.0
  ****************************************************************************************************/
 
+const filmesDAO = require('../model/DAO/filme.js')
+
 // Função para add novo filme
 const setNovoFilme = async function() {
 
@@ -22,6 +24,17 @@ const setExcluirFilme = async function() {
 
 const getListarFilmes = async function() {
 
+    let filmesJson = {}
+
+    let dadosFilmes = await filmesDAO.selectAllFilmes()
+
+    if (dadosFilmes) {
+        filmesJson.filmes = dadosFilmes
+        filmesJson.quantidade = dadosFilmes.length
+        filmesJson.status_code = 200
+    } else {
+        return false
+    }
 }
 
 const getBuscarFilme = async function() {
