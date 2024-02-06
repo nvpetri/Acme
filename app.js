@@ -6,6 +6,7 @@
 /**
  * npm install prisma --save (realiza a conexão com o banco)
  * npm install @prisma/client --save (executa os scripts SQL)
+ * npx prisma init
  */
 const express = require('express')
 const cors = require('cors')
