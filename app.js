@@ -1,3 +1,12 @@
+/**********************************\
+ * Autor: Nicolas Vasconcelos      \
+ * Versão: 1.2                     \
+ **********************************/
+
+/**
+ * npm install prisma --save (realiza a conexão com o banco)
+ * npm install @prisma/client --save (executa os scripts SQL)
+ */
 const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
@@ -28,5 +37,5 @@ app.get('/v1/acme/filme/:id', cors(), async(request, response, next) => {
     response.status(200)
 })
 
-console.log("Funcionando na porta 8080")
+console.log("API funcionando na porta 8080")
 app.listen(8080, () => {})
