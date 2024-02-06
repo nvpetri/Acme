@@ -8,6 +8,7 @@
  * npm install @prisma/client --save (executa os scripts SQL)
  * npx prisma init
  */
+
 const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
@@ -24,18 +25,23 @@ app.use((request, response, next) => {
 
 })
 
-
-app.get('/v1/acme/filmes', cors(), async(request, response, next) => {
+// retorna os dados do arquivo json
+app.get('/v1/acmefilmes/filmes', cors(), async(request, response, next) => {
     response.json(funcoes.getListaFilmes())
     response.status(200)
 })
 
-app.get('/v1/acme/filme/:id', cors(), async(request, response, next) => {
+app.get('/v1/acmefilmes/filme/:id', cors(), async(request, response, next) => {
 
     let idFilme = request.params.id
 
     response.json(funcoes.getFilme(idFilme))
     response.status(200)
+})
+
+// retorna os dados do banco de dados
+app.get('/v2/acmefilmes/filmes', cors(), async(request, response, next) => {
+
 })
 
 console.log("API funcionando na porta 8080")
