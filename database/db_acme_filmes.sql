@@ -34,4 +34,7 @@ null,
 null,
 "https://exemplo.com/foto_vale.jpg",
 49.99
-)
+);
+
+show tables;
+
