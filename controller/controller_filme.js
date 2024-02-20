@@ -30,13 +30,18 @@ const getListarFilmes = async function() {
     let dadosFilmes = await filmesDAO.selectAllFilmes()
 
     if (dadosFilmes) {
-        filmesJson.filmes = dadosFilmes
-        filmesJson.quantidade = dadosFilmes.length
-        filmesJson.status_code = 200
+        if (dadosFilmes > 0) {
+            filmesJson.filmes = dadosFilmes
+            filmesJson.quantidade = dadosFilmes.length
+            filmesJson.status_code = 200
 
-        return filmesJson
+            return filmesJson
+
+        } else {
+            return ERROR_Messages.ERROR_NOTFOUND
+        }
     } else {
-        return false
+        return ERROR_Messages.ERROR_INTERNAL_SERVER_DB
     }
 }
 
