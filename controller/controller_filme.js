@@ -7,6 +7,7 @@
  ****************************************************************************************************/
 
 const filmesDAO = require('../model/DAO/filme.js')
+const ERROR_Messages = require('../modulo/config.js')
 
 // Função para add novo filme
 const setNovoFilme = async function() {
@@ -43,7 +44,20 @@ const getBuscarFilme = async function(id) {
     let idFilme = id
 
     if (idFilme == '' || idFilme == undefined || isNaN(idFilme)) {
-        return { status: 400, message: "Id invalido" }
+        return ERROR_Messages.ERROR_INVALID_ID
+    } else {
+        let dadosFilme = await filmesDAO.selectFilmeById
+
+        if (dadosFilme) {
+            let filmeJson = {}
+
+            filmeJson.filme = dadosFilme
+            filmeJson.status_code = 200
+
+            return filmeJson
+        } else {
+            return ERROR_Messages.ERROR_NOTFOUND
+        }
     }
 }
 
