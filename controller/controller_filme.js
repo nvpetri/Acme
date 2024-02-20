@@ -39,8 +39,12 @@ const getListarFilmes = async function() {
     }
 }
 
-const getBuscarFilme = async function() {
+const getBuscarFilme = async function(id) {
+    let idFilme = id
 
+    if (idFilme == '' || idFilme == undefined || isNaN(idFilme)) {
+        return { status: 400, message: "Id invalido" }
+    }
 }
 
 module.exports = {

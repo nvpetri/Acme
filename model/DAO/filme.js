@@ -7,6 +7,11 @@
 
 const { PrismaClient } = require('@prisma/client')
 
+/**
+ * $queryRawUnsafe(sql) --encaminha uma variavel
+ * $queryRaw('select * from tbl_filme') -- encaminha o script direto
+ */
+
 const prisma = new PrismaClient()
 
 const insertFilme = async function() {
@@ -24,19 +29,19 @@ const deleteFilme = async function() {
 const selectAllFilmes = async function() {
     let sql = 'select * from tbl_filme'
 
-    /**
-     * $queryRawUnsafe(sql) --encaminha uma variavel
-     * $queryRaw('select * from tbl_filme') -- encaminha o script direto
-     */
-
     let rsFilmes = await prisma.$queryRawUnsafe(sql)
 
     if (rsFilmes.length > 0) return rsFilmes
     else return false
 }
 
-const selectFilmeById = async function() {
+const selectFilmeById = async function(id) {
+    let sql = `select * from tbl_filme where id=${id}`
 
+    let rsFilme = await prisma.$queryRawUnsafe(sql)
+
+    if (rsFilme.length > 0) return rsFilme
+    else return false
 }
 
 module.exports = {
