@@ -43,13 +43,14 @@ const getListarFilmes = async function() {
 const getBuscarFilme = async function(id) {
     let idFilme = id
 
+    let filmeJson = {}
+
     if (idFilme == '' || idFilme == undefined || isNaN(idFilme)) {
         return ERROR_Messages.ERROR_INVALID_ID
     } else {
-        let dadosFilme = await filmesDAO.selectFilmeById
+        let dadosFilme = await filmesDAO.selectFilmeById(idFilme)
 
         if (dadosFilme) {
-            let filmeJson = {}
 
             filmeJson.filme = dadosFilme
             filmeJson.status_code = 200

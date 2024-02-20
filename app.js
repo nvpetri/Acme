@@ -51,5 +51,16 @@ app.get('/v2/acmefilmes/filmes', cors(), async(request, response, next) => {
     else response.json({ message: "nenhum registro encontrado" }), response.status(404)
 })
 
+app.get('/v2/acmefilmes/filme/:id', cors(), async(request, response, next) => {
+    let idFilme = request.params.id
+
+    let dadosFilme = await controllerFilmes.getBuscarFilme(idFilme)
+
+    response.status(dadosFilme.status_code)
+    response.json(dadosFilme)
+
+
+})
+
 console.log("API funcionando na porta 8080")
 app.listen(8080, () => {})
