@@ -52,12 +52,16 @@ const getBuscarFilme = async function(id) {
 
         if (dadosFilme) {
 
-            filmeJson.filme = dadosFilme
-            filmeJson.status_code = 200
+            if (dadosFilme.length > 0) {
+                filmeJson.filme = dadosFilme
+                filmeJson.status_code = 200
 
-            return filmeJson
+                return filmeJson
+
+            } else
+                return ERROR_Messages.ERROR_NOTFOUND
         } else {
-            return ERROR_Messages.ERROR_NOTFOUND
+            return ERROR_Messages.ERROR_INTERNAL_SERVER_DB
         }
     }
 }

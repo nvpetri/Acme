@@ -27,21 +27,30 @@ const deleteFilme = async function() {
 }
 
 const selectAllFilmes = async function() {
-    let sql = 'select * from tbl_filme'
+    try {
+        let sql = 'select * from tbl_filme'
 
-    let rsFilmes = await prisma.$queryRawUnsafe(sql)
+        let rsFilmes = await prisma.$queryRawUnsafe(sql)
 
-    if (rsFilmes.length > 0) return rsFilmes
-    else return false
+        return rsFilmes
+    } catch (error) {
+        return false
+    }
+
 }
 
 const selectFilmeById = async function(id) {
-    let sql = `select * from tbl_filme where id=${id}`
 
-    let rsFilme = await prisma.$queryRawUnsafe(sql)
+    try {
+        let sql = `select * from tbl_filme where id=${id}`
 
-    if (rsFilme.length > 0) return rsFilme
-    else return false
+        let rsFilme = await prisma.$queryRawUnsafe(sql)
+
+        return rsFilme
+    } catch (error) {
+        return false
+    }
+
 }
 
 module.exports = {
