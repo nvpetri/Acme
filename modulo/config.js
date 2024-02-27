@@ -14,8 +14,11 @@ const ERROR_NOTFOUND = { status: false, status_code: 404, message: "Nenhum item 
 
 const ERROR_INTERNAL_SERVER_DB = { status: false, status_code: 500, message: "Ocorreram erros no processamento da DB. Contate o administrador da API" }
 
+const ERROR_INVALID_NAME = { status: false, status_code: 400, message: "Formato de Nome Invalido" }
+
 module.exports = {
     ERROR_INVALID_ID,
     ERROR_NOTFOUND,
-    ERROR_INTERNAL_SERVER_DB
+    ERROR_INTERNAL_SERVER_DB,
+    ERROR_INVALID_NAME
 }

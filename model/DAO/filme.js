@@ -50,7 +50,18 @@ const selectFilmeById = async function(id) {
     } catch (error) {
         return false
     }
+}
 
+const selectFilmeByName = async function(name) {
+    try {
+        let sql = `select * from tbl_filme where nome like "%${name}%"`
+
+        let rsFilme = await prisma.$queryRawUnsafe(sql)
+
+        return rsFilme
+    } catch (error) {
+        return false
+    }
 }
 
 module.exports = {
@@ -58,5 +69,6 @@ module.exports = {
     updateFilme,
     deleteFilme,
     selectAllFilmes,
-    selectFilmeById
+    selectFilmeById,
+    selectFilmeByName
 }
