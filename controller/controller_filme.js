@@ -82,10 +82,11 @@ const getFilmeNome = async function(name) {
         let dadosFilme = await filmesDAO.selectFilmeByName(nomeFilme)
 
         if (dadosFilme) {
+
             if (dadosFilme.length > 0) {
 
-                filmesJson.filme = dadosFilme
-                filmesJson.status_code = 200
+                filmeJson.filme = dadosFilme
+                filmeJson.status_code = 200
 
                 return filmeJson
             } else {
