@@ -14,7 +14,59 @@ const { PrismaClient } = require('@prisma/client')
 
 const prisma = new PrismaClient()
 
-const insertFilme = async function() {
+const insertFilme = async function(dadosFilme) {
+
+    try {
+        let sql
+
+        if (dadosFilme.data_relancamento == null ||
+            dadosFilme.data_relancamento == undefined ||
+            dadosFilme.data_relancamento == '') {
+            sql = `insert into tbl_filme (nome, 
+                                        sinopse,
+                                        duracao,
+                                        data_lancamento,
+                                        data_relancamento,
+                                        foto_capa,
+                                        valor_unitario
+        ) values(
+            '${dadosFilme.nome}',
+            '${dadosFilme.sinopse}',
+            '${dadosFilme.duracao}',
+            '${dadosFilme.data_lancamento}',
+            null,
+            '${dadosFilme.foto_capa}',
+            '${dadosFilme.valor_unitario}'
+        )`
+        } else {
+            sql = `insert into tbl_filme (nome, 
+                                          sinopse,
+                                          duracao,
+                                          data_lancamento,
+                                          data_relancamento,
+                                          foto_capa,
+                                          valor_unitario
+                                    ) values(
+                                    '${dadosFilme.nome}',
+                                    '${dadosFilme.sinopse}',
+                                    '${dadosFilme.duracao}',
+                                    '${dadosFilme.data_lancamento}',
+                                    null,
+                                    '${dadosFilme.foto_capa}',
+                                    '${dadosFilme.valor_unitario}'
+                                    )`
+        }
+
+        let result = await prisma.$executeRawUnsafe(sql)
+
+        if (result)
+            return true
+        else
+            return false
+
+    } catch (error) {
+        return false
+    }
 
 }
 

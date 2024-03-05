@@ -16,9 +16,12 @@ const ERROR_INTERNAL_SERVER_DB = { status: false, status_code: 500, message: "Oc
 
 const ERROR_INVALID_NAME = { status: false, status_code: 400, message: "Formato de Nome Invalido" }
 
+const ERROR_REQUIRED_FIELDS = { status: false, status_code: 400, message: "Existem campos obrigatórios que não foram preenchidos ou ultrapassaram o limite de caracteres" }
+
 module.exports = {
     ERROR_INVALID_ID,
     ERROR_NOTFOUND,
     ERROR_INTERNAL_SERVER_DB,
-    ERROR_INVALID_NAME
+    ERROR_INVALID_NAME,
+    ERROR_REQUIRED_FIELDS
 }

@@ -10,8 +10,16 @@ const filmesDAO = require('../model/DAO/filme.js')
 const ERROR_Messages = require('../modulo/config.js')
 
 // Função para add novo filme
-const setNovoFilme = async function() {
-
+const setNovoFilme = async function(dadosFilme) {
+    if (dadosFilme.nome == '' || dadosFilme.nome == undefined || dadosFilme.nome == null || dadosFilme.nome.length > 80 ||
+        dadosFilme.sinopse == '' || dadosFilme.sinopse == undefined || dadosFilme.nome == null || dadosFilme.sinopse > 65000 ||
+        dadosFilme.duracao == '' || dadosFilme.duracao == undefined || dadosFilme.duracao == null || dadosFilme.duracao > 9 ||
+        dadosFilme.data_lancamento == '' || dadosFilme.data_lancamento == undefined || dadosFilme.data_lancamento == null || dadosFilme.data_lancamento.length != 10 ||
+        dadosFilme.foto_capa == '' || dadosFilme.foto_capa == undefined || dadosFilme.foto_capa == null || dadosFilme.foto_capa.length > 200 ||
+        dadosFilme.valor_unitario.length > 8 || isNaN(dadosFilme.valor_unitario)
+    ) {
+        return ERROR_Messages.ERROR_REQUIRED_FIELDS
+    }
 }
 
 
