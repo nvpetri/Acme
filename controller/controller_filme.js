@@ -11,6 +11,9 @@ const ERROR_Messages = require('../modulo/config.js')
 
 // Função para add novo filme
 const setNovoFilme = async function(dadosFilme) {
+
+    let statusValidate = false
+
     if (dadosFilme.nome == '' || dadosFilme.nome == undefined || dadosFilme.nome == null || dadosFilme.nome.length > 80 ||
         dadosFilme.sinopse == '' || dadosFilme.sinopse == undefined || dadosFilme.nome == null || dadosFilme.sinopse > 65000 ||
         dadosFilme.duracao == '' || dadosFilme.duracao == undefined || dadosFilme.duracao == null || dadosFilme.duracao > 9 ||
@@ -19,6 +22,16 @@ const setNovoFilme = async function(dadosFilme) {
         dadosFilme.valor_unitario.length > 8 || isNaN(dadosFilme.valor_unitario)
     ) {
         return ERROR_Messages.ERROR_REQUIRED_FIELDS
+    } else {
+        if (dadosFilme.data_relancamento != '' && dadosFilme.data_relancamento != null && dadosFilme.data_relancamento != undefined) {
+            if (dadosFilme.data_relancamento.length != 10) {
+                return ERROR_Messages.ERROR_REQUIRED_FIELDS
+            } else {
+                statusValidate = true
+            }
+        } else {
+            statusValidate = true
+        }
     }
 }
 
