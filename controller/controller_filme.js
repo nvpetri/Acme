@@ -13,6 +13,7 @@ const ERROR_Messages = require('../modulo/config.js')
 const setNovoFilme = async function(dadosFilme) {
 
     let statusValidate = false
+    let novoFilmeJson = {}
 
     if (dadosFilme.nome == '' || dadosFilme.nome == undefined || dadosFilme.nome == null || dadosFilme.nome.length > 80 ||
         dadosFilme.sinopse == '' || dadosFilme.sinopse == undefined || dadosFilme.nome == null || dadosFilme.sinopse > 65000 ||
@@ -32,7 +33,23 @@ const setNovoFilme = async function(dadosFilme) {
         } else {
             statusValidate = true
         }
+        if (statusValidate) {
+            let novoFilme = await filmesDAO.insertFilme(dadosFilme)
+
+            if (novoFilme) {
+
+                novoFilmeJson.status = ERROR_Messages.SUCCESS_CREATED_ITEM.status
+                novoFilmeJson.status_code = ERROR_Messages.SUCCESS_CREATED_ITEM.status_code
+                novoFilmeJson.message = ERROR_Messages.SUCCESS_CREATED_ITEM.message
+                novoFilmeJson.filme = dadosFilme
+
+                return novoFilmeJson
+            } else {
+                return ERROR_Messages.ERROR_INTERNAL_SERVER_DB
+            }
+        }
     }
+
 }
 
 

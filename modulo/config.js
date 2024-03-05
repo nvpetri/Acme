@@ -18,10 +18,16 @@ const ERROR_INVALID_NAME = { status: false, status_code: 400, message: "Formato 
 
 const ERROR_REQUIRED_FIELDS = { status: false, status_code: 400, message: "Existem campos obrigatórios que não foram preenchidos ou ultrapassaram o limite de caracteres" }
 
+
+/**********************Mensagens de sucesso************************** */
+
+const SUCCESS_CREATED_ITEM = { status: true, status_code: 201, message: "Dados inseridos com sucesso!!!" }
+
 module.exports = {
     ERROR_INVALID_ID,
     ERROR_NOTFOUND,
     ERROR_INTERNAL_SERVER_DB,
     ERROR_INVALID_NAME,
-    ERROR_REQUIRED_FIELDS
+    ERROR_REQUIRED_FIELDS,
+    SUCCESS_CREATED_ITEM
 }
