@@ -6,6 +6,7 @@
  ****************************************************************************************************/
 
 const { PrismaClient } = require('@prisma/client')
+const { ERROR_INTERNAL_SERVER_DB } = require('../../modulo/config')
 
 /**
  * $queryRawUnsafe(sql) --encaminha uma variavel
@@ -70,6 +71,22 @@ const insertFilme = async function(dadosFilme) {
 
 }
 
+const getId = async function() {
+    try {
+        const sqlGet = 'select cast(id as decimal) as id from tbl_filme order by id desc limit 1'
+
+        let resultGet = await prisma.$queryRawUnsafe(sqlGet)
+
+        if (resultGet) {
+            return resultGet
+        } else {
+            return false
+        }
+    } catch (error) {
+        return ERROR_INTERNAL_SERVER_DB
+    }
+}
+
 const updateFilme = async function() {
 
 }
@@ -122,5 +139,6 @@ module.exports = {
     deleteFilme,
     selectAllFilmes,
     selectFilmeById,
-    selectFilmeByName
+    selectFilmeByName,
+    getId
 }

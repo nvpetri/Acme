@@ -20,6 +20,8 @@ const ERROR_REQUIRED_FIELDS = { status: false, status_code: 400, message: "Exist
 
 const ERROR_INVALID_FORMAT = { status: false, status_code: 415, message: "Foi enviado um formato invalido de arquivo" }
 
+const ERROR_INTERNAL_SERVER = { status: false, status_code: 500, message: "Ocorreram erros no processamento da API. Contate o administrador " }
+
 
 /**********************Mensagens de sucesso************************** */
 
@@ -32,5 +34,6 @@ module.exports = {
     ERROR_INVALID_NAME,
     ERROR_REQUIRED_FIELDS,
     SUCCESS_CREATED_ITEM,
-    ERROR_INVALID_FORMAT
+    ERROR_INVALID_FORMAT,
+    ERROR_INTERNAL_SERVER
 }
