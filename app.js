@@ -73,12 +73,17 @@ app.get('/v2/acmefilmes/filtro/filme/', cors(), async(request, response, next) =
 })
 
 app.post('/v2/acmefilmes/filme', cors(), bodyParserJSON, async(request, response, next) => {
+
+    let contentType = request.headers['content-type']
+
     let dadosBody = request.body
 
-    let resultDados = await controllerFilmes.setNovoFilme(dadosBody)
+    let resultDados = await controllerFilmes.setNovoFilme(dadosBody, contentType)
 
     response.status(resultDados.status_code)
     response.json(resultDados)
+
+
 })
 
 console.log("API funcionando na porta 8080")

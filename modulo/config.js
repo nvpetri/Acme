@@ -18,6 +18,8 @@ const ERROR_INVALID_NAME = { status: false, status_code: 400, message: "Formato 
 
 const ERROR_REQUIRED_FIELDS = { status: false, status_code: 400, message: "Existem campos obrigatórios que não foram preenchidos ou ultrapassaram o limite de caracteres" }
 
+const ERROR_INVALID_FORMAT = { status: false, status_code: 415, message: "Foi enviado um formato invalido de arquivo" }
+
 
 /**********************Mensagens de sucesso************************** */
 
@@ -29,5 +31,6 @@ module.exports = {
     ERROR_INTERNAL_SERVER_DB,
     ERROR_INVALID_NAME,
     ERROR_REQUIRED_FIELDS,
-    SUCCESS_CREATED_ITEM
+    SUCCESS_CREATED_ITEM,
+    ERROR_INVALID_FORMAT
 }
