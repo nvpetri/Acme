@@ -22,10 +22,14 @@ const ERROR_INVALID_FORMAT = { status: false, status_code: 415, message: "Foi en
 
 const ERROR_INTERNAL_SERVER = { status: false, status_code: 500, message: "Ocorreram erros no processamento da API. Contate o administrador " }
 
+const ERROR_UPDATE_ITEM = { status: false, status_code: 428, message: "Não foi possivel atualizar o item no banco de dados." }
+
 
 /**********************Mensagens de sucesso************************** */
 
 const SUCCESS_CREATED_ITEM = { status: true, status_code: 201, message: "Dados inseridos com sucesso!!!" }
+
+const SUCCESS_UPDATED_ITEM = { status: true, status_code: 200, message: "Dados atualizados com sucesso!!" }
 
 module.exports = {
     ERROR_INVALID_ID,
@@ -35,5 +39,7 @@ module.exports = {
     ERROR_REQUIRED_FIELDS,
     SUCCESS_CREATED_ITEM,
     ERROR_INVALID_FORMAT,
-    ERROR_INTERNAL_SERVER
+    ERROR_INTERNAL_SERVER,
+    SUCCESS_UPDATED_ITEM,
+    ERROR_UPDATE_ITEM
 }

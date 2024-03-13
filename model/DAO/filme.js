@@ -87,8 +87,26 @@ const getId = async function() {
     }
 }
 
-const updateFilme = async function() {
+const updateFilme = async function(id, novosDados) {
+    try {
+        let sql = `UPDATE tbl_filme SET `
+        const keys = Object.keys(novosDados)
 
+        keys.forEach((key, index) => {
+            sql += `${key} = '${novosDados[key]}'`
+            if (index !== keys.length - 1) {
+                sql += `, `
+            }
+        })
+
+        sql += ` WHERE id = ${id}`
+
+        let result = await prisma.$executeRawUnsafe(sql)
+
+        return result
+    } catch (error) {
+        return ERROR_INTERNAL_SERVER_DB
+    }
 }
 
 const deleteFilme = async function() {

@@ -27,6 +27,8 @@ app.use((request, response, next) => {
 
 const bodyParserJSON = bodyParser.json()
 
+app.use(bodyParserJSON)
+
 /*imports dos arquivos internos*/
 
 const controllerFilmes = require('./controller/controller_filme.js')
@@ -83,7 +85,17 @@ app.post('/v2/acmefilmes/filme', cors(), bodyParserJSON, async(request, response
     response.status(resultDados.status_code)
     response.json(resultDados)
 
+})
 
+app.put('/v2/acmefilmes/atualizarFilme/', cors(), bodyParserJSON, async(request, response, next) => {
+
+    let contentType = request.headers['content-type']
+    let novosDados = request.body
+
+    let resultDados = await controllerFilmes.setAtualizarFilme(novosDados, contentType)
+
+    response.status(resultDados.status_code)
+    response.json(resultDados)
 })
 
 console.log("API funcionando na porta 8080")

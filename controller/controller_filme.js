@@ -64,10 +64,26 @@ const setNovoFilme = async function(dadosFilme, content) {
 
 }
 
+const setAtualizarFilme = async function(novosDados, content) {
+    if (String(content).toLowerCase() == 'application/json') {
+        try {
+            const id = novosDados.id
+            delete novosDados.id
 
-const setAtualizarFilme = async function() {
-
+            const filmeAtualizado = await filmesDAO.updateFilme(id, novosDados)
+            if (filmeAtualizado) {
+                return ERROR_Messages.SUCCESS_UPDATED_ITEM
+            } else {
+                return ERROR_Messages.ERROR_INTERNAL_SERVER_DB
+            }
+        } catch (error) {
+            return ERROR_Messages.ERROR_UPDATE_ITEM
+        }
+    } else {
+        return ERROR_Messages.ERROR_INVALID_FORMAT
+    }
 }
+
 
 const setExcluirFilme = async function() {
 
