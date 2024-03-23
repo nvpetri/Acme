@@ -87,12 +87,14 @@ app.post('/v2/acmefilmes/filme', cors(), bodyParserJSON, async(request, response
 
 })
 
-app.put('/v2/acmefilmes/atualizarFilme/', cors(), bodyParserJSON, async(request, response, next) => {
+app.put('/v2/acmefilmes/atualizarFilme/:id', cors(), bodyParserJSON, async(request, response, next) => {
+
+    const id = request.params.id
 
     let contentType = request.headers['content-type']
     let novosDados = request.body
 
-    let resultDados = await controllerFilmes.setAtualizarFilme(novosDados, contentType)
+    let resultDados = await controllerFilmes.setAtualizarFilme(id, novosDados, contentType)
 
     response.status(resultDados.status_code)
     response.json(resultDados)

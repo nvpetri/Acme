@@ -64,26 +64,47 @@ const setNovoFilme = async function(dadosFilme, content) {
 
 }
 
-const setAtualizarFilme = async function(novosDados, content) {
-    if (String(content).toLowerCase() == 'application/json') {
-        try {
-            const id = novosDados.id
-            delete novosDados.id
-
-            const filmeAtualizado = await filmesDAO.updateFilme(id, novosDados)
-            if (filmeAtualizado) {
-                return ERROR_Messages.SUCCESS_UPDATED_ITEM
-            } else {
-                return ERROR_Messages.ERROR_INTERNAL_SERVER_DB
-            }
-        } catch (error) {
-            return ERROR_Messages.ERROR_UPDATE_ITEM
+const setAtualizarFilme = async function(id, novosDados, content) {
+    try {
+        if (String(content).toLowerCase() !== 'application/json') {
+            return ERROR_Messages.ERROR_INVALID_FORMAT
         }
-    } else {
-        return ERROR_Messages.ERROR_INVALID_FORMAT
+
+        const errors = []
+
+        if (!novosDados.nome || novosDados.nome === '' || novosDados.nome.length > 80 ||
+            !novosDados.sinopse || novosDados.sinopse === '' || novosDados.sinopse.length > 65000 ||
+            !novosDados.duracao || novosDados.duracao === '' || novosDados.duracao > 9 ||
+            !novosDados.data_lancamento || novosDados.data_lancamento === '' || novosDados.data_lancamento.length !== 10 ||
+            !novosDados.foto_capa || novosDados.foto_capa === '' || novosDados.foto_capa.length > 200 ||
+            (novosDados.valor_unitario && (isNaN(novosDados.valor_unitario) || novosDados.valor_unitario.length > 8)) ||
+            (novosDados.data_relancamento && novosDados.data_relancamento.length !== 10)
+        ) {
+            if (!novosDados.data_relancamento || novosDados.data_relancamento.length !== 10) {
+                return ERROR_Messages.ERROR_REQUIRED_FIELDS
+            }
+            return ERROR_Messages.ERROR_REQUIRED_FIELDS
+        }
+
+        const idFilme = id
+        const filmeAtualizado = await filmesDAO.updateFilme(idFilme, novosDados)
+
+        if (filmeAtualizado) {
+            let novoFilmeJson = {
+                status: ERROR_Messages.SUCCESS_UPDATED_ITEM.status,
+                status_code: ERROR_Messages.SUCCESS_UPDATED_ITEM.status_code,
+                message: ERROR_Messages.SUCCESS_UPDATED_ITEM.message,
+                idFilmeAtualizado: idFilme,
+                filme: novosDados
+            }
+            return novoFilmeJson
+        } else {
+            return ERROR_Messages.ERROR_INTERNAL_SERVER_DB
+        }
+    } catch (error) {
+        return ERROR_Messages.ERROR_UPDATE_ITEM
     }
 }
-
 
 const setExcluirFilme = async function() {
 
