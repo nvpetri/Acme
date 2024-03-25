@@ -115,6 +115,7 @@ const deleteFilme = async function() {
 
 const selectAllFilmes = async function() {
     try {
+
         let sql = 'select * from tbl_filme'
 
         let rsFilmes = await prisma.$queryRawUnsafe(sql)

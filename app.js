@@ -68,6 +68,7 @@ app.get('/v2/acmefilmes/filme/:id', cors(), async(request, response, next) => {
 app.get('/v2/acmefilmes/filtro/filme/', cors(), async(request, response, next) => {
     let name = request.query.nome
 
+    console.log(name)
     let dadosFilme = await controllerFilmes.getFilmeNome(name)
 
     response.status(dadosFilme.status_code)
