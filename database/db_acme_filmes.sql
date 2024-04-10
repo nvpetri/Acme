@@ -98,6 +98,52 @@ create table tbl_atores(
     foreign key(id_sexo) references tbl_sexo(id)
 );
 
+create table tbl_nacionalidade_ator(
+	id int not null auto_increment primary key,
+    id_nacionalidade int not null,
+    id_ator int not null,
+    
+    unique index(id),
+    unique key (id),
+    
+    foreign key(id_nacionalidade) references tbl_nacionalidade(id),
+    foreign key(id_ator) references tbl_atores(id)
+);
 
+create table tbl_nacionalidade_diretor(
+	id int not null auto_increment primary key,
+    id_nacionalidade int not null,
+    id_diretor int not null,
+    
+    unique index(id),
+    unique key (id),
+    
+    foreign key(id_nacionalidade) references tbl_nacionalidade(id),
+    foreign key(id_diretor) references tbl_diretores(id)
+);
+
+create table tbl_diretores_filme(
+	id int not null auto_increment primary key,
+    id_diretor int not null,
+    id_filme int not null,
+    
+    unique index(id),
+    unique key (id),
+    
+    foreign key(id_diretor) references tbl_diretores(id),
+    foreign key(id_filme) references tbl_filme(id)
+);
+
+create table tbl_atores_filme(
+	id int not null auto_increment primary key,
+    id_ator int not null,
+    id_filme int not null,
+    
+    unique index(id),
+    unique key (id),
+    
+    foreign key(id_ator) references tbl_atores(id),
+    foreign key(id_filme) references tbl_filme(id)
+);
 
 show tables;
