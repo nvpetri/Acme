@@ -29,6 +29,8 @@ const bodyParserJSON = bodyParser.json()
 
 app.use(bodyParserJSON)
 
+/*ENDPOINTS FILMES*/
+
 /*imports dos arquivos internos*/
 
 const controllerFilmes = require('./controller/controller_filme.js')
@@ -68,7 +70,6 @@ app.get('/v2/acmefilmes/filme/:id', cors(), async(request, response, next) => {
 app.get('/v2/acmefilmes/filtro/filme/', cors(), async(request, response, next) => {
     let name = request.query.nome
 
-    console.log(name)
     let dadosFilme = await controllerFilmes.getFilmeNome(name)
 
     response.status(dadosFilme.status_code)
@@ -100,6 +101,16 @@ app.put('/v2/acmefilmes/atualizarFilme/:id', cors(), bodyParserJSON, async(reque
     response.status(resultDados.status_code)
     response.json(resultDados)
 })
+
+app.delete('/v2/acmefilmes/deleteFilme/:id', cors(), async(request, response, next) => {
+    const idFilme = request.params.id
+
+    let resultDados = await controllerFilmes.setExcluirFilme(idFilme)
+
+    response.json(resultDados)
+})
+
+/*ENDPOINTS ATORES*/
 
 console.log("API funcionando na porta 8080")
 app.listen(8080, () => {})

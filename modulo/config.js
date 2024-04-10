@@ -31,6 +31,8 @@ const SUCCESS_CREATED_ITEM = { status: true, status_code: 201, message: "Dados i
 
 const SUCCESS_UPDATED_ITEM = { status: true, status_code: 200, message: "Dados atualizados com sucesso!!" }
 
+const SUCCESS_DELETED_ITEM = { status: true, status_code: 410, message: "Item excluido com sucesso!!" }
+
 module.exports = {
     ERROR_INVALID_ID,
     ERROR_NOTFOUND,
@@ -41,5 +43,6 @@ module.exports = {
     ERROR_INVALID_FORMAT,
     ERROR_INTERNAL_SERVER,
     SUCCESS_UPDATED_ITEM,
-    ERROR_UPDATE_ITEM
+    ERROR_UPDATE_ITEM,
+    SUCCESS_DELETED_ITEM
 }

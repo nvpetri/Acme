@@ -106,7 +106,26 @@ const setAtualizarFilme = async function(id, novosDados, content) {
     }
 }
 
-const setExcluirFilme = async function() {
+const setExcluirFilme = async function(id) {
+    try {
+
+        const idFilme = id
+
+        if (!isNaN(idFilme)) {
+
+            const filmeExcluido = filmesDAO.deleteFilme(idFilme)
+
+            if (filmeExcluido) {
+                return ERROR_Messages.SUCCESS_DELETED_ITEM
+            } else {
+                return ERROR_Messages.ERROR_INTERNAL_SERVER_DB
+            }
+        } else {
+            return ERROR_Messages.ERROR_INVALID_ID
+        }
+    } catch (error) {
+        return ERROR_Messages.ERROR_INTERNAL_SERVER
+    }
 
 }
 
