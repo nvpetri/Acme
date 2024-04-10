@@ -112,5 +112,20 @@ app.delete('/v2/acmefilmes/deleteFilme/:id', cors(), async(request, response, ne
 
 /*ENDPOINTS ATORES*/
 
+/*ENDPOINTS GENERO */
+
+const controller_genero = require('./controller/controller_genero.js')
+
+app.get('/v2/acmefilmes/generos', cors(), async(request, response, next) => {
+    let dadosGeneros = await controller_genero
+
+    if (dadosGeneros) {
+        response.json(dadosGeneros)
+        response.status(200)
+    }
+})
+
+/*ENDPOINTS CLASSIFICAÇÃO */
+
 console.log("API funcionando na porta 8080")
 app.listen(8080, () => {})
