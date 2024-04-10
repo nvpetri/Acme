@@ -13,6 +13,13 @@ unique key (id),
 unique index (id)
 );
 
+insert into tbl_classificacao(nome, sigla, descricao, icon) values(
+	"Livre",
+    "L",
+    "Faz o L",
+    "www.teste.com"
+);
+
 create table tbl_filme(
 	id int not null auto_increment primary key,
     nome varchar(80) not null,

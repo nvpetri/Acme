@@ -29,7 +29,8 @@ const insertFilme = async function(dadosFilme) {
                                         data_lancamento,
                                         data_relancamento,
                                         foto_capa,
-                                        valor_unitario
+                                        valor_unitario,
+                                        id_classificacao
         ) values(
             '${dadosFilme.nome}',
             '${dadosFilme.sinopse}',
@@ -37,7 +38,8 @@ const insertFilme = async function(dadosFilme) {
             '${dadosFilme.data_lancamento}',
             null,
             '${dadosFilme.foto_capa}',
-            '${dadosFilme.valor_unitario}'
+            '${dadosFilme.valor_unitario}',
+            '${dadosFilme.id_classificacao}'
         )`
         } else {
             sql = `insert into tbl_filme (nome, 

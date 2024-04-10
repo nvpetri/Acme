@@ -23,6 +23,7 @@ const setNovoFilme = async function(dadosFilme, content) {
                 dadosFilme.duracao == '' || dadosFilme.duracao == undefined || dadosFilme.duracao == null || dadosFilme.duracao > 9 ||
                 dadosFilme.data_lancamento == '' || dadosFilme.data_lancamento == undefined || dadosFilme.data_lancamento == null || dadosFilme.data_lancamento.length != 10 ||
                 dadosFilme.foto_capa == '' || dadosFilme.foto_capa == undefined || dadosFilme.foto_capa == null || dadosFilme.foto_capa.length > 200 ||
+                dadosFilme.id_classificacao == '' || dadosFilme.id_classificacao == undefined || dadosFilme.id_classificacao == null || isNaN(dadosFilme.id_classificacao) ||
                 dadosFilme.valor_unitario.length > 8 || isNaN(dadosFilme.valor_unitario)
             ) {
                 return ERROR_Messages.ERROR_REQUIRED_FIELDS
@@ -77,8 +78,9 @@ const setAtualizarFilme = async function(id, novosDados, content) {
             !novosDados.duracao || novosDados.duracao === '' || novosDados.duracao > 9 ||
             !novosDados.data_lancamento || novosDados.data_lancamento === '' || novosDados.data_lancamento.length !== 10 ||
             !novosDados.foto_capa || novosDados.foto_capa === '' || novosDados.foto_capa.length > 200 ||
-            (novosDados.valor_unitario && (isNaN(novosDados.valor_unitario) || novosDados.valor_unitario.length > 8)) ||
-            (novosDados.data_relancamento && novosDados.data_relancamento.length !== 10)
+            dadosFilme.id_classificacao == '' || dadosFilme.id_classificacao == undefined || dadosFilme.id_classificacao == null || isNaN(dadosFilme.id_classificacao) ||
+            novosDados.valor_unitario && (isNaN(novosDados.valor_unitario) || novosDados.valor_unitario.length > 8) ||
+            novosDados.data_relancamento && novosDados.data_relancamento.length !== 10
         ) {
             if (!novosDados.data_relancamento || novosDados.data_relancamento.length !== 10) {
                 return ERROR_Messages.ERROR_REQUIRED_FIELDS
