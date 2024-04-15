@@ -117,15 +117,28 @@ app.delete('/v2/acmefilmes/deleteFilme/:id', cors(), async(request, response, ne
 const controller_genero = require('./controller/controller_genero.js')
 
 app.get('/v2/acmefilmes/generos', cors(), async(request, response, next) => {
-    let dadosGeneros = await controller_genero
+
+    let dadosGeneros = await controller_genero.getListarGenero()
 
     if (dadosGeneros) {
         response.json(dadosGeneros)
         response.status(200)
-    }
+    } else response.json({ message: "nenhum registro encontrado" }), response.status(404)
 })
 
 /*ENDPOINTS CLASSIFICAÇÃO */
+
+const controller_classificacao = require('./controller/controller_classificacao.js')
+
+app.get('/v2/acmefilmes/classificacao', cors(), async(request, response, next) => {
+
+    let dadosClassificacao = await controller_classificacao.getListarClassificacao()
+
+    if (dadosClassificacao) {
+        response.json(dadosClassificacao)
+        response.status(200)
+    } else response.json({ message: "nenhum registro encontrado" }), response.status(404)
+})
 
 console.log("API funcionando na porta 8080")
 app.listen(8080, () => {})

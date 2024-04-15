@@ -22,7 +22,31 @@ const setExcluirGenero = async function(id) {
 }
 
 const getListarGenero = async function() {
+    try {
 
+        let generosJson = {}
+
+        let dadosGenero = await generosDAO.selectAllGenero()
+
+        if (dadosGenero) {
+
+            if (dadosGenero.length > 0) {
+                generosJson.genero = dadosGenero
+                generosJson.quantidade = dadosGenero.length
+                generosJson.status_code = 200
+
+                console.log(dadosGenero)
+                return generosJson
+
+            } else {
+                return ERROR_Messages.ERROR_NOTFOUND
+            }
+        } else {
+            return ERROR_Messages.ERROR_INTERNAL_SERVER_DB
+        }
+    } catch (error) {
+        return ERROR_Messages.ERROR_INTERNAL_SERVER
+    }
 }
 
 const getBuscarGenero = async function(id) {

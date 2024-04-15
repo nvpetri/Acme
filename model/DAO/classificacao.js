@@ -100,10 +100,10 @@ const selectAllClassificacao = async function() {
     try {
         let sql = 'select * from tbl_classificacao'
 
-        let result = await prisma.$executeRawUnsafe(sql)
+        let result = await prisma.$queryRawUnsafe(sql)
 
         if (result) {
-            return true
+            return result
         } else {
             return false
         }

@@ -22,7 +22,31 @@ const setExcluirClassificacao = async function(id) {
 }
 
 const getListarClassificacao = async function() {
+    try {
 
+        let classificacaoJson = {}
+
+        let dadosClassificacao = await classificacaoDAO.selectAllClassificacao()
+
+        if (dadosClassificacao) {
+
+            if (dadosClassificacao.length > 0) {
+                classificacaoJson.Classificacao = dadosClassificacao
+                classificacaoJson.quantidade = dadosClassificacao.length
+                classificacaoJson.status_code = 200
+
+                console.log(dadosClassificacao)
+                return classificacaoJson
+
+            } else {
+                return ERROR_Messages.ERROR_NOTFOUND
+            }
+        } else {
+            return ERROR_Messages.ERROR_INTERNAL_SERVER_DB
+        }
+    } catch (error) {
+        return ERROR_Messages.ERROR_INTERNAL_SERVER
+    }
 }
 
 const getBuscarClassificacao = async function(id) {
