@@ -35,7 +35,6 @@ const getListarClassificacao = async function() {
                 classificacaoJson.quantidade = dadosClassificacao.length
                 classificacaoJson.status_code = 200
 
-                console.log(dadosClassificacao)
                 return classificacaoJson
 
             } else {

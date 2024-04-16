@@ -126,7 +126,30 @@ app.get('/v2/acmefilmes/generos', cors(), async(request, response, next) => {
     } else response.json({ message: "nenhum registro encontrado" }), response.status(404)
 })
 
-/*ENDPOINTS CLASSIFICAÇÃO */
+app.post('/v2/acmefilmes/inserirGenero', cors(), bodyParserJSON, async(request, response, next) => {
+
+    let contentType = request.headers['content-type']
+
+    let dadosBody = request.body
+
+    let resultDados = await controller_genero.setNovoGenero(dadosBody, contentType)
+
+    response.status(resultDados.status_code)
+    response.json(resultDados)
+})
+
+app.put('/v2/acmefilmes/atualizarGenero/:id', cors(), async(request, response, next) => {
+        const id = request.params.id
+
+        let contentType = request.headers['content-type']
+        let novosDados = request.body
+
+        let resultDados = await controller_genero.setAtualizarGenero(id, novosDados, contentType)
+
+        response.status(resultDados.status_code)
+        response.json(resultDados)
+    })
+    /*ENDPOINTS CLASSIFICAÇÃO */
 
 const controller_classificacao = require('./controller/controller_classificacao.js')
 

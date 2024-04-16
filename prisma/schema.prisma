@@ -8,135 +8,21 @@ datasource db {
 }
 
 model tbl_filme {
-  id                  Int                   @id @unique(map: "id") @default(autoincrement())
-  nome                String                @db.VarChar(80)
-  sinopse             String                @db.Text
-  duracao             DateTime              @db.Time(0)
-  data_lancamento     DateTime              @db.Date
-  data_relancamento   DateTime?             @db.Date
-  foto_capa           String                @db.VarChar(300)
-  valor_unitario      Float?                @db.Float
-  id_classificacao    Int
-  tbl_atores_filme    tbl_atores_filme[]
-  tbl_diretores_filme tbl_diretores_filme[]
-  tbl_classificacao   tbl_classificacao     @relation(fields: [id_classificacao], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "tbl_filme_ibfk_1")
-  tbl_filme_genero    tbl_filme_genero[]
-
-  @@index([id_classificacao], map: "id_classificacao")
+  id                Int       @id @unique(map: "id") @default(autoincrement())
+  nome              String    @db.VarChar(80)
+  sinopse           String    @db.Text
+  duracao           DateTime  @db.Time(0)
+  data_lancamento   DateTime  @db.Date
+  data_relancamento DateTime? @db.Date
+  foto_capa         String    @db.VarChar(300)
+  valor_unitario    Float?    @db.Float
 }
 
 model tbl_atores {
-  id                     Int                      @id @unique(map: "id") @default(autoincrement())
-  nome                   String                   @db.VarChar(90)
-  nome_artistico         String?                  @db.VarChar(90)
-  biografia              String?                  @db.Text
-  foto                   String?                  @db.Text
-  data_nascimento        DateTime                 @db.Date
-  data_falecimeto        DateTime?                @db.Date
-  id_sexo                Int
-  tbl_sexo               tbl_sexo                 @relation(fields: [id_sexo], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "tbl_atores_ibfk_1")
-  tbl_atores_filme       tbl_atores_filme[]
-  tbl_nacionalidade_ator tbl_nacionalidade_ator[]
-
-  @@index([id_sexo], map: "id_sexo")
-}
-
-model tbl_classificacao {
-  id        Int         @id @unique(map: "id") @default(autoincrement())
-  nome      String      @db.VarChar(45)
-  sigla     String      @db.VarChar(5)
-  descricao String      @db.VarChar(100)
-  icon      String?     @db.Text
-  tbl_filme tbl_filme[]
-}
-
-model tbl_diretores {
-  id                        Int                         @id @unique(map: "id") @default(autoincrement())
-  nome                      String                      @db.VarChar(90)
-  nome_artistico            String?                     @db.VarChar(90)
-  biografia                 String?                     @db.Text
-  foto                      String?                     @db.Text
-  data_nascimento           DateTime                    @db.Date
-  data_falecimeto           DateTime?                   @db.Date
-  id_sexo                   Int
-  tbl_sexo                  tbl_sexo                    @relation(fields: [id_sexo], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "tbl_diretores_ibfk_1")
-  tbl_diretores_filme       tbl_diretores_filme[]
-  tbl_nacionalidade_diretor tbl_nacionalidade_diretor[]
-
-  @@index([id_sexo], map: "id_sexo")
-}
-
-model tbl_diretores_filme {
-  id            Int           @id @unique(map: "id") @default(autoincrement())
-  id_diretor    Int
-  id_filme      Int
-  tbl_diretores tbl_diretores @relation(fields: [id_diretor], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "tbl_diretores_filme_ibfk_1")
-  tbl_filme     tbl_filme     @relation(fields: [id_filme], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "tbl_diretores_filme_ibfk_2")
-
-  @@index([id_diretor], map: "id_diretor")
-  @@index([id_filme], map: "id_filme")
-}
-
-model tbl_filme_genero {
-  id         Int        @id @unique(map: "id") @default(autoincrement())
-  id_genero  Int
-  id_filme   Int
-  tbl_genero tbl_genero @relation(fields: [id_genero], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "tbl_filme_genero_ibfk_1")
-  tbl_filme  tbl_filme  @relation(fields: [id_filme], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "tbl_filme_genero_ibfk_2")
-
-  @@index([id_filme], map: "id_filme")
-  @@index([id_genero], map: "id_genero")
-}
-
-model tbl_genero {
-  id               Int                @id @unique(map: "id") @default(autoincrement())
-  nome             String?            @db.VarChar(45)
-  tbl_filme_genero tbl_filme_genero[]
-}
-
-model tbl_nacionalidade {
-  id                        Int                         @id @unique(map: "id") @default(autoincrement())
-  nome                      String                      @db.VarChar(45)
-  tbl_nacionalidade_ator    tbl_nacionalidade_ator[]
-  tbl_nacionalidade_diretor tbl_nacionalidade_diretor[]
-}
-
-model tbl_nacionalidade_ator {
-  id                Int               @id @unique(map: "id") @default(autoincrement())
-  id_nacionalidade  Int
-  id_ator           Int
-  tbl_nacionalidade tbl_nacionalidade @relation(fields: [id_nacionalidade], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "tbl_nacionalidade_ator_ibfk_1")
-  tbl_atores        tbl_atores        @relation(fields: [id_ator], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "tbl_nacionalidade_ator_ibfk_2")
-
-  @@index([id_ator], map: "id_ator")
-  @@index([id_nacionalidade], map: "id_nacionalidade")
-}
-
-model tbl_nacionalidade_diretor {
-  id                Int               @id @unique(map: "id") @default(autoincrement())
-  id_nacionalidade  Int
-  id_diretor        Int
-  tbl_nacionalidade tbl_nacionalidade @relation(fields: [id_nacionalidade], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "tbl_nacionalidade_diretor_ibfk_1")
-  tbl_diretores     tbl_diretores     @relation(fields: [id_diretor], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "tbl_nacionalidade_diretor_ibfk_2")
-
-  @@index([id_diretor], map: "id_diretor")
-  @@index([id_nacionalidade], map: "id_nacionalidade")
-}
-
-model tbl_sexo {
-  id            Int             @id @unique(map: "id") @default(autoincrement())
-  nome          String          @db.VarChar(2)
-  tbl_atores    tbl_atores[]
-  tbl_diretores tbl_diretores[]
-}
-
-model tbl_atores_filme {
-  id         Int        @id @unique(map: "id") @default(autoincrement())
-  id_ator    Int
-  id_filme   Int
-  tbl_atores tbl_atores @relation(fields: [id_ator], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "tbl_atores_filme_ibfk_1")
-  tbl_filme  tbl_filme  @relation(fields: [id_filme], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "tbl_atores_filme_ibfk_2")
-
-  @@index([id_ator], map: "id_ator")
-  @@index([id_filme], map: "id_filme")
+  id               Int       @id @default(autoincrement())
+  nome             String    @db.VarChar(80)
+  data_nascimento  DateTime  @db.Date
+  foto             String    @db.VarChar(100)
+  data_falecimento DateTime? @db.Date
+  biografia        String?   @db.Text
 }

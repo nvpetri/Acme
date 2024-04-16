@@ -71,8 +71,6 @@ const setAtualizarFilme = async function(id, novosDados, content) {
             return ERROR_Messages.ERROR_INVALID_FORMAT
         }
 
-        const errors = []
-
         if (!novosDados.nome || novosDados.nome === '' || novosDados.nome.length > 80 ||
             !novosDados.sinopse || novosDados.sinopse === '' || novosDados.sinopse.length > 65000 ||
             !novosDados.duracao || novosDados.duracao === '' || novosDados.duracao > 9 ||

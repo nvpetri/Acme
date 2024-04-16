@@ -11,12 +11,10 @@ const { ERROR_INTERNAL_SERVER_DB } = require('../../modulo/config')
 const prisma = new PrismaClient()
 
 const insertGenero = async function(dadosGenero) {
+
     try {
-        let sql = `insert into tbl_classificacao (
-                                                    nome
-        ) values(
-                    '${dadosGenero.nome}',
-        );`
+
+        let sql = `insert into tbl_genero (nome) values('${dadosGenero.nome}');`
 
         let result = await prisma.$executeRawUnsafe(sql)
 
