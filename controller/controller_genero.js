@@ -73,7 +73,21 @@ const setAtualizarGenero = async function(id, novosDados, content) {
 }
 
 const setExcluirGenero = async function(id) {
+    try {
+        if (!isNaN(id) || id != '' || id != undefined) {
+            const generoExcluido = generosDAO.deleteGenero(id)
 
+            if (generoExcluido) {
+                return ERROR_Messages.SUCCESS_DELETED_ITEM
+            } else {
+                return ERROR_Messages.ERROR_INTERNAL_SERVER_DB
+            }
+        } else {
+            return ERROR_Messages.ERROR_INVALID_ID
+        }
+    } catch (error) {
+        return ERROR_Messages.ERROR_INTERNAL_SERVER
+    }
 }
 
 const getListarGenero = async function() {
@@ -104,18 +118,37 @@ const getListarGenero = async function() {
 }
 
 const getBuscarGenero = async function(id) {
+    try {
+        let generoJson = {}
 
+        if (!isNaN(id) || id != '' || id != undefined) {
+            let dadosGenero = await generosDAO.selectGeneroByID(id)
+
+            if (dadosGenero) {
+                if (dadosGenero.length > 0) {
+                    generoJson.genero = dadosGenero
+                    generoJson.status_code = 200
+
+                    return generoJson
+                } else {
+                    return ERROR_Messages.ERROR_NOTFOUND
+                }
+            } else {
+                return ERROR_Messages.ERROR_INTERNAL_SERVER_DB
+            }
+        } else {
+            return ERROR_Messages.ERROR_INVALID_ID
+        }
+    } catch (error) {
+        return ERROR_Messages.ERROR_INTERNAL_SERVER
+    }
 }
 
-const getGeneroNome = async function(name) {
-
-}
 
 module.exports = {
     setNovoGenero,
     setAtualizarGenero,
     setExcluirGenero,
     getBuscarGenero,
-    getGeneroNome,
     getListarGenero
 }

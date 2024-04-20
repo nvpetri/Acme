@@ -111,7 +111,7 @@ const setExcluirFilme = async function(id) {
 
         const idFilme = id
 
-        if (!isNaN(idFilme)) {
+        if (idFilme == '' || idFilme == undefined || isNaN(idFilme)) {
 
             const filmeExcluido = filmesDAO.deleteFilme(idFilme)
 

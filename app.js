@@ -138,18 +138,37 @@ app.post('/v2/acmefilmes/inserirGenero', cors(), bodyParserJSON, async(request, 
     response.json(resultDados)
 })
 
-app.put('/v2/acmefilmes/atualizarGenero/:id', cors(), async(request, response, next) => {
-        const id = request.params.id
+app.put('/v2/acmefilmes/atualizarGenero/:id', cors(), bodyParserJSON, async(request, response, next) => {
+    const id = request.params.id
 
-        let contentType = request.headers['content-type']
-        let novosDados = request.body
+    let contentType = request.headers['content-type']
+    let novosDados = request.body
 
-        let resultDados = await controller_genero.setAtualizarGenero(id, novosDados, contentType)
+    let resultDados = await controller_genero.setAtualizarGenero(id, novosDados, contentType)
 
-        response.status(resultDados.status_code)
-        response.json(resultDados)
-    })
-    /*ENDPOINTS CLASSIFICAÇÃO */
+    response.status(resultDados.status_code)
+    response.json(resultDados)
+})
+
+app.delete('/v2/acmefilmes/deletarGenero/:id', cors(), async(request, response, next) => {
+    const id = request.params.id
+
+    let resultDados = await controller_genero.setExcluirGenero(id)
+
+    response.status(resultDados.status_code)
+    response.json(resultDados)
+})
+
+app.get('/v2/acmefilmes/buscarGenero/:id', cors(), async(request, response, next) => {
+    const id = request.params.id
+
+    let resultDados = await controller_genero.getBuscarGenero(id)
+
+    response.status(resultDados.status_code)
+    response.json(resultDados)
+})
+
+/*ENDPOINTS CLASSIFICAÇÃO */
 
 const controller_classificacao = require('./controller/controller_classificacao.js')
 
@@ -161,6 +180,47 @@ app.get('/v2/acmefilmes/classificacao', cors(), async(request, response, next) =
         response.json(dadosClassificacao)
         response.status(200)
     } else response.json({ message: "nenhum registro encontrado" }), response.status(404)
+})
+
+app.post('/v2/acmefilmes/inserirClassificacao', cors(), bodyParserJSON, async(request, response, next) => {
+    let contentType = request.headers['content-type']
+
+    let dadosBody = request.body
+
+    let resultDados = await controller_classificacao.setNovaClassificacao(dadosBody, contentType)
+
+    response.status(resultDados.status_code)
+    response.json(resultDados)
+})
+
+app.put('/v2/acmefilmes/atualizarGenero/:id', cors(), bodyParserJSON, async(request, response, next) => {
+    const id = request.params.id
+
+    let contentType = request.headers['content-type']
+    let novosDados = request.body
+
+    let resultDados = await controller_classificacao.setAtualizarClassificacao(id, novosDados, contentType)
+
+    response.status(resultDados.status_code)
+    response.json(resultDados)
+})
+
+app.delete('/v2/acmefilmes/deletarClassificacao/:id', cors(), async(request, response, next) => {
+    const id = request.params.id
+
+    let resultDados = await controller_classificacao.setExcluirClassificacao(id)
+
+    response.status(resultDados.status_code)
+    response.json(resultDados)
+})
+
+app.get('/v2/acmefilmes/buscarClassificacao/:id', cors(), async(request, response, next) => {
+    const id = request.params.id
+
+    let resultDados = await controller_classificacao.getBuscarClassificacao(id)
+
+    response.status(resultDados.status_code)
+    response.json(resultDados)
 })
 
 console.log("API funcionando na porta 8080")
