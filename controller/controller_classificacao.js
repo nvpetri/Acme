@@ -105,7 +105,7 @@ const getListarClassificacao = async function() {
         if (dadosClassificacao) {
 
             if (dadosClassificacao.length > 0) {
-                classificacaoJson.Classificacao = dadosClassificacao
+                classificacaoJson.classificacao = dadosClassificacao
                 classificacaoJson.quantidade = dadosClassificacao.length
                 classificacaoJson.status_code = 200
 
@@ -154,6 +154,6 @@ module.exports = {
     setAtualizarClassificacao,
     setExcluirClassificacao,
     getBuscarClassificacao,
-    getClassificacaoNome,
+
     getListarClassificacao
 }
