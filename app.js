@@ -228,7 +228,7 @@ app.get('/v2/acmefilmes/buscarClassificacao/:id', cors(), async(request, respons
 /*ENDPOINTS ATORES*/
 
 app.get('/v2/acmefilmes/atores', cors(), async(request, response, next) => {
-    let dadosAtores = await controllerAtores.getListarAtores
+    let dadosAtores = await controllerAtores.getListarAtores()
 
     if (dadosAtores) {
         response.json(dadosAtores)
@@ -273,7 +273,7 @@ app.delete('/v2/acmefilmes/deletarAtor/:id', cors(), async(request, response, ne
 app.get('/v2/acmefilmes/buscarAtor/:id', cors(), async(request, response, next) => {
     const id = request.params.id
 
-    let resultDados = await controllerAtores.getBuscarAtorId(id)
+    let resultDados = await controllerAtores.getAtorId(id)
 
     response.status(resultDados.status_code)
     response.json(resultDados)
@@ -282,7 +282,7 @@ app.get('/v2/acmefilmes/buscarAtor/:id', cors(), async(request, response, next) 
 app.get('/v2/acmefilmes/buscarAtorNome/', cors(), async(request, response, next) => {
     let nome = request.query.nome
 
-    let resultDados = await controllerAtores.getBuscarAtorNome(nome)
+    let resultDados = await controllerAtores.getAtorNome(nome)
 
     response.status(resultDados.status_code)
     response.json(resultDados)
@@ -290,7 +290,7 @@ app.get('/v2/acmefilmes/buscarAtorNome/', cors(), async(request, response, next)
 
 /*ENDPOINTS DIRETORES */
 app.get('/v2/acmefilmes/diretores', cors(), async(request, response, next) => {
-    let dadosDiretor = await controller_diretores.getListarDiretores
+    let dadosDiretor = await controller_diretores.getListarDiretores()
 
     if (dadosDiretor) {
         response.json(dadosDiretor)
@@ -335,7 +335,7 @@ app.delete('/v2/acmefilmes/deletarDiretor/:id', cors(), async(request, response,
 app.get('/v2/acmefilmes/buscarDiretor/:id', cors(), async(request, response, next) => {
     const id = request.params.id
 
-    let resultDados = await controller_diretores.getBuscarDiretorId(id)
+    let resultDados = await controller_diretores.getDiretorId(id)
 
     response.status(resultDados.status_code)
     response.json(resultDados)
@@ -344,7 +344,7 @@ app.get('/v2/acmefilmes/buscarDiretor/:id', cors(), async(request, response, nex
 app.get('/v2/acmefilmes/buscarDiretorNome/', cors(), async(request, response, next) => {
     let nome = request.query.nome
 
-    let resultDados = await controller_diretores.getBuscarDiretorNome(nome)
+    let resultDados = await controller_diretores.getDiretorNome(nome)
 
     response.status(resultDados.status_code)
     response.json(resultDados)
