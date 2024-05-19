@@ -118,13 +118,17 @@ const getListarGenero = async function() {
 }
 
 const getBuscarGenero = async function(id) {
+
+
     try {
+
         let generoJson = {}
 
         if (!isNaN(id) || id != '' || id != undefined) {
             let dadosGenero = await generosDAO.selectGeneroByID(id)
 
             if (dadosGenero) {
+
                 if (dadosGenero.length > 0) {
                     generoJson.genero = dadosGenero
                     generoJson.status_code = 200

@@ -350,5 +350,9 @@ app.get('/v2/acmefilmes/buscarDiretorNome/', cors(), async(request, response, ne
     response.json(resultDados)
 })
 
+/*ENDPOINTS SEXO */
+
+/*ENDPOINTS NACIONALIDADE */
+
 console.log("API funcionando na porta 8080")
 app.listen(8080, () => {})

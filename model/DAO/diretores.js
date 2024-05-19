@@ -15,7 +15,7 @@ const insertDiretor = async function(dadosDiretores) {
                                                 biografia,
                                                 foto,
                                                 data_nascimento,
-                                                data_falecimento,
+                                                data_falecimeto,
                                                 id_sexo
                                             ) values(
                                                         '${dadosDiretores.nome}',
@@ -33,7 +33,7 @@ const insertDiretor = async function(dadosDiretores) {
                                                 biografia,
                                                 foto,
                                                 data_nascimento,
-                                                data_falecimento,
+                                                data_falecimeto,
                                                 id_sexo
                                             ) values(
                                                         '${dadosDiretores.nome}',
@@ -119,10 +119,11 @@ const selectAllDiretores = async function() {
 
         let sql = 'select * from tbl_diretores'
 
-        let rsAtores = await prisma.$queryRawUnsafe(sql)
+        let rsDiretores = await prisma.$queryRawUnsafe(sql)
 
-        return rsAtores
+        return rsDiretores
     } catch (error) {
+
         return false
     }
 }

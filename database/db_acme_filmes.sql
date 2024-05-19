@@ -89,6 +89,18 @@ create table tbl_diretores(
     foreign key(id_sexo) references tbl_sexo(id)
 );
 
+
+insert into tbl_diretores(nome, nome_artistico, biografia, foto, data_nascimento, data_falecimeto, id_sexo) values 
+(
+"Nicolas",
+"Petri",
+"Aquariano nato e é isso...",
+"www.world-wide-web.com",
+"2007-02-07",
+"",
+1
+);
+
 create table tbl_atores(
 	id int not null auto_increment primary key,
     nome varchar(90) not null,
@@ -103,6 +115,17 @@ create table tbl_atores(
     unique index(id),
     
     foreign key(id_sexo) references tbl_sexo(id)
+);
+
+insert into tbl_atores(nome, nome_artistico, biografia, foto, data_nascimento, data_falecimeto, id_sexo) values 
+(
+"Nicolas",
+"Petri",
+"Aquariano nato e é isso...",
+"www.world-wide-web.com",
+"2007-02-07",
+"",
+1
 );
 
 create table tbl_nacionalidade_ator(
