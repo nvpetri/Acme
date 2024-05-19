@@ -43,6 +43,18 @@ const controllerAtores = require('./controller/controller_atores.js')
 
 const controller_diretores = require('./controller/controller_diretores.js')
 
+const filmeGeneroController = require('./controller/controller_filme_genero.js')
+
+const nacionalidadeController = require('./controller/controller_nacionalidade.js')
+
+const nacionalidadeAtorController = require('./controller/controller_nacionalidade_ator.js')
+
+const nacionalidadeDiretorController = require('./controller/controller_nacionalidade_diretor.js')
+
+const diretoresFilmeController = require('./controller/controller_diretores_filmes.js')
+
+const atoresFilmeController = require('./controller/controller_atores_filme.js')
+
 // retorna os dados do arquivo json
 app.get('/v1/acmefilmes/filmes', cors(), async(request, response, next) => {
     response.json(funcoes.getListaFilmes())
@@ -352,7 +364,280 @@ app.get('/v2/acmefilmes/buscarDiretorNome/', cors(), async(request, response, ne
 
 /*ENDPOINTS SEXO */
 
+app.get('/v2/acmefilmes/sexos', cors(), async(request, response, next) => {
+    let dadosSexo = await sexoController.getListarSexos()
+
+    if (dadosSexo) {
+        response.status(dadosSexo.status_code).json(dadosSexo)
+    } else {
+        response.status(404).json({ message: 'Nenhum registro encontrado' })
+    }
+})
+
+app.post('/v2/acmefilmes/inserirSexo', cors(), bodyParser.json(), async(request, response, next) => {
+    let contentType = request.headers['content-type']
+    let dadosBody = request.body
+
+    let resultDados = await sexoController.setNovoSexo(dadosBody, contentType)
+
+    response.status(resultDados.status_code).json(resultDados)
+})
+
+app.put('/v2/acmefilmes/atualizarSexo/:id', cors(), bodyParser.json(), async(request, response, next) => {
+    const id = request.params.id
+    let contentType = request.headers['content-type']
+    let novosDados = request.body
+
+    let resultDados = await sexoController.setAtualizarSexo(id, novosDados, contentType)
+
+    response.status(resultDados.status_code).json(resultDados)
+})
+
+app.delete('/v2/acmefilmes/deletarSexo/:id', cors(), async(request, response, next) => {
+    const id = request.params.id
+
+    let resultDados = await sexoController.setExcluirSexo(id)
+
+    response.status(resultDados.status_code).json(resultDados)
+})
+
+app.get('/v2/acmefilmes/buscarSexo/:id', cors(), async(request, response, next) => {
+    const id = request.params.id
+
+    let resultDados = await sexoController.getBuscarSexo(id)
+
+    response.status(resultDados.status_code).json(resultDados)
+})
+
+app.get('/v2/acmefilmes/buscarSexoNome/', cors(), async(request, response, next) => {
+    let nome = request.query.nome
+
+    let resultDados = await sexoController.getSexoNome(nome)
+
+    response.status(resultDados.status_code).json(resultDados)
+})
+
 /*ENDPOINTS NACIONALIDADE */
+
+// Rotas para tbl_filme_genero
+app.get('/v2/acmefilmes/filmeGenero', async(request, response, next) => {
+    let dadosFilmeGenero = await filmeGeneroController.getListarFilmesGeneros();
+
+    if (dadosFilmeGenero) {
+        response.status(dadosFilmeGenero.status_code).json(dadosFilmeGenero);
+    } else {
+        response.status(404).json({ message: 'Nenhum registro encontrado' });
+    }
+});
+
+app.post('/v2/acmefilmes/inserirFilmeGenero', bodyParser.json(), async(request, response, next) => {
+    let contentType = request.headers['content-type'];
+    let dadosBody = request.body;
+
+    let resultDados = await filmeGeneroController.setNovoFilmeGenero(dadosBody, contentType);
+
+    response.status(resultDados.status_code).json(resultDados);
+});
+
+app.put('/v2/acmefilmes/atualizarFilmeGenero/:id', bodyParser.json(), async(request, response, next) => {
+    const id = request.params.id;
+    let contentType = request.headers['content-type'];
+    let novosDados = request.body;
+
+    let resultDados = await filmeGeneroController.atualizarFilmeGenero(id, novosDados, contentType);
+
+    response.status(resultDados.status_code).json(resultDados);
+});
+
+app.delete('/v2/acmefilmes/deletarFilmeGenero/:id', async(request, response, next) => {
+    const id = request.params.id;
+
+    let resultDados = await filmeGeneroController.excluirFilmeGenero(id);
+
+    response.status(resultDados.status_code).json(resultDados);
+});
+
+// Rotas para tbl_nacionalidade
+app.get('/v2/acmefilmes/nacionalidade', async(request, response, next) => {
+    let dadosNacionalidade = await nacionalidadeController.getListarNacionalidades();
+
+    if (dadosNacionalidade) {
+        response.status(dadosNacionalidade.status_code).json(dadosNacionalidade);
+    } else {
+        response.status(404).json({ message: 'Nenhum registro encontrado' });
+    }
+});
+
+app.post('/v2/acmefilmes/inserirNacionalidade', bodyParser.json(), async(request, response, next) => {
+    let contentType = request.headers['content-type'];
+    let dadosBody = request.body;
+
+    let resultDados = await nacionalidadeController.setNovaNacionalidade(dadosBody, contentType);
+
+    response.status(resultDados.status_code).json(resultDados);
+});
+
+app.put('/v2/acmefilmes/atualizarNacionalidade/:id', bodyParser.json(), async(request, response, next) => {
+    const id = request.params.id;
+    let contentType = request.headers['content-type'];
+    let novosDados = request.body;
+
+    let resultDados = await nacionalidadeController.atualizarNacionalidade(id, novosDados, contentType);
+
+    response.status(resultDados.status_code).json(resultDados);
+});
+
+app.delete('/v2/acmefilmes/deletarNacionalidade/:id', async(request, response, next) => {
+    const id = request.params.id;
+
+    let resultDados = await nacionalidadeController.excluirNacionalidade(id);
+
+    response.status(resultDados.status_code).json(resultDados);
+});
+
+// Rotas para tbl_nacionalidade_ator
+app.get('/v2/acmefilmes/nacionalidadeAtor', async(request, response, next) => {
+    let dadosNacionalidadeAtor = await nacionalidadeAtorController.getListarNacionalidadesAtores();
+
+    if (dadosNacionalidadeAtor) {
+        response.status(dadosNacionalidadeAtor.status_code).json(dadosNacionalidadeAtor);
+    } else {
+        response.status(404).json({ message: 'Nenhum registro encontrado' });
+    }
+});
+
+app.post('/v2/acmefilmes/inserirNacionalidadeAtor', bodyParser.json(), async(request, response, next) => {
+    let contentType = request.headers['content-type'];
+    let dadosBody = request.body;
+    let resultDados = await nacionalidadeAtorController.setNovaNacionalidadeAtor(dadosBody, contentType);
+
+    response.status(resultDados.status_code).json(resultDados);
+});
+
+app.put('/v2/acmefilmes/atualizarNacionalidadeAtor/:id', bodyParser.json(), async(request, response, next) => {
+    const id = request.params.id;
+    let contentType = request.headers['content-type'];
+    let novosDados = request.body;
+    let resultDados = await nacionalidadeAtorController.atualizarNacionalidadeAtor(id, novosDados, contentType);
+
+    response.status(resultDados.status_code).json(resultDados);
+});
+
+app.delete('/v2/acmefilmes/deletarNacionalidadeAtor/:id', async(request, response, next) => {
+    const id = request.params.id;
+    let resultDados = await nacionalidadeAtorController.excluirNacionalidadeAtor(id);
+
+    response.status(resultDados.status_code).json(resultDados);
+});
+
+// Rotas para tbl_nacionalidade_diretor
+app.get('/v2/acmefilmes/nacionalidadeDiretor', async(request, response, next) => {
+    let dadosNacionalidadeDiretor = await nacionalidadeDiretorController.getListarNacionalidadesDiretores();
+    if (dadosNacionalidadeDiretor) {
+        response.status(dadosNacionalidadeDiretor.status_code).json(dadosNacionalidadeDiretor);
+    } else {
+        response.status(404).json({ message: 'Nenhum registro encontrado' });
+    }
+});
+
+app.post('/v2/acmefilmes/inserirNacionalidadeDiretor', bodyParser.json(), async(request, response, next) => {
+    let contentType = request.headers['content-type'];
+    let dadosBody = request.body;
+    let resultDados = await nacionalidadeDiretorController.setNovaNacionalidadeDiretor(dadosBody, contentType);
+
+    response.status(resultDados.status_code).json(resultDados);
+});
+
+app.put('/v2/acmefilmes/atualizarNacionalidadeDiretor/:id', bodyParser.json(), async(request, response, next) => {
+    const id = request.params.id;
+    let contentType = request.headers['content-type'];
+    let novosDados = request.body;
+    let resultDados = await nacionalidadeDiretorController.atualizarNacionalidadeDiretor(id, novosDados, contentType);
+
+    response.status(resultDados.status_code).json(resultDados);
+});
+
+app.delete('/v2/acmefilmes/deletarNacionalidadeDiretor/:id', async(request, response, next) => {
+    const id = request.params.id;
+    let resultDados = await nacionalidadeDiretorController.excluirNacionalidadeDiretor(id);
+
+    response.status(resultDados.status_code).json(resultDados);
+});
+
+// Rotas para tbl_diretores_filme
+app.get('/v2/acmefilmes/diretoresFilme', async(request, response, next) => {
+    let dadosDiretoresFilme = await diretoresFilmeController.getListarDiretoresFilmes();
+
+    if (dadosDiretoresFilme) {
+        response.status(dadosDiretoresFilme.status_code).json(dadosDiretoresFilme);
+    } else {
+        response.status(404).json({ message: 'Nenhum registro encontrado' });
+    }
+});
+
+app.post('/v2/acmefilmes/inserirDiretorFilme', bodyParser.json(), async(request, response, next) => {
+    let contentType = request.headers['content-type'];
+    let dadosBody = request.body;
+
+    let resultDados = await diretoresFilmeController.setNovoDiretorFilme(dadosBody, contentType);
+
+    response.status(resultDados.status_code).json(resultDados);
+});
+
+app.put('/v2/acmefilmes/atualizarDiretorFilme/:id', bodyParser.json(), async(request, response, next) => {
+    const id = request.params.id;
+    let contentType = request.headers['content-type'];
+    let novosDados = request.body;
+    let resultDados = await diretoresFilmeController.atualizarDiretorFilme(id, novosDados, contentType);
+
+    response.status(resultDados.status_code).json(resultDados);
+});
+
+app.delete('/v2/acmefilmes/deletarDiretorFilme/:id', async(request, response, next) => {
+    const id = request.params.id;
+    let resultDados = await diretoresFilmeController.excluirDiretorFilme(id);
+
+    response.status(resultDados.status_code).json(resultDados);
+});
+
+// Rotas para tbl_atores_filme
+app.get('/v2/acmefilmes/atoresFilme', async(request, response, next) => {
+    let dadosAtoresFilme = await atoresFilmeController.getListarAtoresFilmes();
+
+    if (dadosAtoresFilme) {
+        response.status(dadosAtoresFilme.status_code).json(dadosAtoresFilme);
+    } else {
+        response.status(404).json({ message: 'Nenhum registro encontrado' });
+    }
+});
+
+app.post('/v2/acmefilmes/inserirAtorFilme', bodyParser.json(), async(request, response, next) => {
+    let contentType = request.headers['content-type'];
+    let dadosBody = request.body;
+    let resultDados = await atoresFilmeController.setNovoAtorFilme(dadosBody, contentType);
+
+    response.status(resultDados.status_code).json(resultDados);
+
+});
+
+app.put('/v2/acmefilmes/atualizarAtorFilme/:id', bodyParser.json(), async(request, response, next) => {
+    const id = request.params.id;
+    let contentType = request.headers['content-type'];
+    let novosDados = request.body;
+
+    let resultDados = await atoresFilmeController.atualizarAtorFilme(id, novosDados, contentType);
+
+    response.status(resultDados.status_code).json(resultDados);
+});
+
+app.delete('/v2/acmefilmes/deletarAtorFilme/:id', async(request, response, next) => {
+    const id = request.params.id;
+
+    let resultDados = await atoresFilmeController.excluirAtorFilme(id);
+
+    response.status(resultDados.status_code).json(resultDados);
+});
+
 
 console.log("API funcionando na porta 8080")
 app.listen(8080, () => {})
