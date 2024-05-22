@@ -91,7 +91,9 @@ const getId = async function() {
 
 const updateFilme = async function(id, novosDados) {
     try {
+
         let sql = `UPDATE tbl_filme SET `
+
         const keys = Object.keys(novosDados)
 
         keys.forEach((key, index) => {
@@ -100,7 +102,6 @@ const updateFilme = async function(id, novosDados) {
                 sql += `, `
             }
         })
-
         sql += ` WHERE id = ${id}`
 
         let result = await prisma.$executeRawUnsafe(sql)
@@ -112,6 +113,8 @@ const updateFilme = async function(id, novosDados) {
 }
 
 const deleteFilme = async function(id) {
+
+
     const idFilme = id
 
     try {
@@ -131,6 +134,7 @@ const deleteFilme = async function(id) {
 }
 
 const selectAllFilmes = async function() {
+
     try {
 
         let sql = 'select * from tbl_filme'

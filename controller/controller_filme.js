@@ -67,39 +67,45 @@ const setNovoFilme = async function(dadosFilme, content) {
 
 const setAtualizarFilme = async function(id, novosDados, content) {
     try {
+        console.log("oi")
         if (String(content).toLowerCase() !== 'application/json') {
             return ERROR_Messages.ERROR_INVALID_FORMAT
-        }
-
-        if (!novosDados.nome || novosDados.nome === '' || novosDados.nome.length > 80 ||
-            !novosDados.sinopse || novosDados.sinopse === '' || novosDados.sinopse.length > 65000 ||
-            !novosDados.duracao || novosDados.duracao === '' || novosDados.duracao > 9 ||
-            !novosDados.data_lancamento || novosDados.data_lancamento === '' || novosDados.data_lancamento.length !== 10 ||
-            !novosDados.foto_capa || novosDados.foto_capa === '' || novosDados.foto_capa.length > 200 ||
-            dadosFilme.id_classificacao == '' || dadosFilme.id_classificacao == undefined || dadosFilme.id_classificacao == null || isNaN(dadosFilme.id_classificacao) ||
-            novosDados.valor_unitario && (isNaN(novosDados.valor_unitario) || novosDados.valor_unitario.length > 8) ||
-            novosDados.data_relancamento && novosDados.data_relancamento.length !== 10
-        ) {
-            if (!novosDados.data_relancamento || novosDados.data_relancamento.length !== 10) {
-                return ERROR_Messages.ERROR_REQUIRED_FIELDS
-            }
-            return ERROR_Messages.ERROR_REQUIRED_FIELDS
-        }
-
-        const idFilme = id
-        const filmeAtualizado = await filmesDAO.updateFilme(idFilme, novosDados)
-
-        if (filmeAtualizado) {
-            let novoFilmeJson = {
-                status: ERROR_Messages.SUCCESS_UPDATED_ITEM.status,
-                status_code: ERROR_Messages.SUCCESS_UPDATED_ITEM.status_code,
-                message: ERROR_Messages.SUCCESS_UPDATED_ITEM.message,
-                idFilmeAtualizado: idFilme,
-                filme: novosDados
-            }
-            return novoFilmeJson
         } else {
-            return ERROR_Messages.ERROR_INTERNAL_SERVER_DB
+            console.log("tudo bom?")
+
+            if (!novosDados.nome || novosDados.nome === '' || novosDados.nome.length > 80 ||
+                !novosDados.sinopse || novosDados.sinopse === '' || novosDados.sinopse.length > 65000 ||
+                !novosDados.duracao || novosDados.duracao === '' || novosDados.duracao > 9 ||
+                !novosDados.data_lancamento || novosDados.data_lancamento === '' || novosDados.data_lancamento.length !== 10 ||
+                !novosDados.foto_capa || novosDados.foto_capa === '' || novosDados.foto_capa.length > 200 ||
+                novosDados.id_classificacao == '' || novosDados.id_classificacao == undefined || novosDados.id_classificacao == null || isNaN(novosDados.id_classificacao) ||
+                novosDados.valor_unitario && (isNaN(novosDados.valor_unitario) || novosDados.valor_unitario.length > 8)
+            ) {
+                if (!novosDados.data_relancamento || novosDados.data_relancamento.length !== 10) {
+                    console.table(novosDados)
+                    console.log("tudo certo")
+                    const idFilme = id
+
+                    const filmeAtualizado = await filmesDAO.updateFilme(idFilme, novosDados)
+
+                    if (filmeAtualizado) {
+                        let novoFilmeJson = {
+                            status: ERROR_Messages.SUCCESS_UPDATED_ITEM.status,
+                            status_code: ERROR_Messages.SUCCESS_UPDATED_ITEM.status_code,
+                            message: ERROR_Messages.SUCCESS_UPDATED_ITEM.message,
+                            idFilmeAtualizado: idFilme,
+                            filme: novosDados
+                        }
+                        return novoFilmeJson
+                    } else {
+                        return ERROR_Messages.ERROR_INTERNAL_SERVER_DB
+                    }
+                } else {
+                    return ERROR_Messages.ERROR_REQUIRED_FIELDS
+                }
+            } else {
+                return ERROR_Messages.ERROR_INTERNAL_SERVER_DB
+            }
         }
     } catch (error) {
         return ERROR_Messages.ERROR_UPDATE_ITEM
@@ -108,11 +114,14 @@ const setAtualizarFilme = async function(id, novosDados, content) {
 
 const setExcluirFilme = async function(id) {
     try {
+        console.log(id, "id")
 
         const idFilme = id
 
         if (idFilme == '' || idFilme == undefined || isNaN(idFilme)) {
+            return ERROR_Messages.ERROR_INVALID_ID
 
+        } else {
             const filmeExcluido = filmesDAO.deleteFilme(idFilme)
 
             if (filmeExcluido) {
@@ -120,8 +129,7 @@ const setExcluirFilme = async function(id) {
             } else {
                 return ERROR_Messages.ERROR_INTERNAL_SERVER_DB
             }
-        } else {
-            return ERROR_Messages.ERROR_INVALID_ID
+
         }
     } catch (error) {
         return ERROR_Messages.ERROR_INTERNAL_SERVER

@@ -1,5 +1,5 @@
 // Controlador para tbl_filme_genero
-const filmesGeneroDAO = require('../model/DAO/filmesGenero.js');
+const filmesGeneroDAO = require('../model/DAO/generoFilme.js');
 const ERROR_Messages = require('../modulo/config.js');
 
 // Adicionar um novo registro
