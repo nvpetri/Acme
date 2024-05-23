@@ -15,6 +15,8 @@ const setNovoFilme = async function(dadosFilme, content) {
     try {
         if (String(content).toLowerCase() == 'application/json') {
 
+            console.table(dadosFilme)
+
             let statusValidate = false
             let novoFilmeJson = {}
 
@@ -26,12 +28,18 @@ const setNovoFilme = async function(dadosFilme, content) {
                 dadosFilme.id_classificacao == '' || dadosFilme.id_classificacao == undefined || dadosFilme.id_classificacao == null || isNaN(dadosFilme.id_classificacao) ||
                 dadosFilme.valor_unitario.length > 8 || isNaN(dadosFilme.valor_unitario)
             ) {
+
+                console.log("erro if 1")
                 return ERROR_Messages.ERROR_REQUIRED_FIELDS
             } else {
+
                 if (dadosFilme.data_relancamento != '' && dadosFilme.data_relancamento != null && dadosFilme.data_relancamento != undefined) {
+                    console.log("erro if 2")
                     if (dadosFilme.data_relancamento.length != 10) {
+                        console.log("teste")
                         return ERROR_Messages.ERROR_REQUIRED_FIELDS
                     } else {
+                        console.log("testeeeee")
                         statusValidate = true
                     }
                 } else {
@@ -60,9 +68,9 @@ const setNovoFilme = async function(dadosFilme, content) {
             return ERROR_Messages.ERROR_INVALID_FORMAT
         }
     } catch (error) {
+        
         return ERROR_Messages.ERROR_INTERNAL_SERVER
     }
-
 }
 
 const setAtualizarFilme = async function(id, novosDados, content) {
